@@ -108,8 +108,9 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
-          name: bundle_drop
-          path: ${{env.ARCHIVE_DIR}}
+          # name: bundle_drop
+          path: ${{env.ARCHIVE_DIR}}/*
+          
   publish:
     name: Publish Bundle created
     needs: build
@@ -128,8 +129,9 @@ jobs:
       - name: download artifacts
         uses: actions/download-artifact@master
         with:
-          name: bundle_drop
+          # name: bundle_drop
           path: ${{env.ARTIFACT_DIR}}
+          merge-multiple: true
 
       - name: generate checksum files
         run: cd ${ARTIFACT_DIR} && for i in *; do sha256sum -b $i > "$i.sha256"; done && cd -
